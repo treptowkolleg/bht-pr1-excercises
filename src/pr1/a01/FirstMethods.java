@@ -2,6 +2,8 @@ package pr1.a01;
 
 import java.io.PrintWriter;
 
+import pr1.helper.Range;
+
 public class FirstMethods {
 
 	// bequeme Anpassungsmöglichkeit für das Rahmen-Symbol
@@ -14,6 +16,19 @@ public class FirstMethods {
 		printDecorated(writer, "23.10.: Aufgabe 1b");
 		printValue(writer, 4);
 		printFlaecheSiebeneck(writer, 1);
+
+		// START:	Testdurchlauf mit Fehlerbehandlung
+		double a = 1;
+
+		for (int i : new Range(3, 9)) {
+			try {
+				writer.printf("Die Fläche des %d-Ecks mit a=%.2f ergibt %.2f Flächeneinheiten.%n", i, a,
+						flaecheAllgemein(a, i));
+			} catch (RuntimeException e) {
+				writer.print("FEHLER:\t" + e.getMessage());
+			}
+		}
+		// ENDE:	Testdurchlauf mit Fehlerbehandlung
 
 		// gesammelte Ausgaben ausgeben
 		writer.flush();
@@ -60,12 +75,12 @@ public class FirstMethods {
 	 * @param a   Seitenlänge
 	 */
 	public static void printFlaecheSiebeneck(PrintWriter out, double a) {
-		out.printf("Die Fläche des Siebenecks mit a = %.2f ergibt %.2f Flächeneinheiten.%n", a, flaecheSiebeneck(a));
+		out.printf("Die Fläche des Siebenecks mit a=%.2f ergibt %.2f Flächeneinheiten.%n", a, flaecheSiebeneck(a));
 	}
 
 	/**
-	 * Berechne den Flächeninhalt eines regelmäßigen Siebenecks.
-	 * Quelle: <a href="https://www.mathespass.at/formeln/regelm%C3%A4%C3%9Figes-siebeneck-formeln-und-eigenschaften">Mathespass.at</a>
+	 * Berechne den Flächeninhalt eines regelmäßigen Siebenecks. Quelle: <a href=
+	 * "https://www.mathespass.at/formeln/regelm%C3%A4%C3%9Figes-siebeneck-formeln-und-eigenschaften">Mathespass.at</a>
 	 * 
 	 * @param a Seitenlänge
 	 * @return Flächeninhalt
@@ -73,7 +88,7 @@ public class FirstMethods {
 	public static double flaecheSiebeneck(double a) {
 		return flaecheAllgemein(a, 7);
 	}
-	
+
 	/**
 	 * 
 	 * @param aSeitenlänge
@@ -91,9 +106,16 @@ public class FirstMethods {
 	 * @return Flächeninhalt
 	 */
 	public static double flaecheAllgemein(double a, int n) {
+		if (n < 3)
+			throw new RuntimeException(String.format("%d-seitige Flächen sind nicht definiert!%n", n));
+
+		if (a <= 0)
+			throw new RuntimeException(
+					String.format("Flächen mit einer Seitenlänge von a=%.2f sind nicht definiert!%n", a));
+
 		return (n * Math.pow(a, 2)) / (4 * Math.tan(Math.PI / n));
 	}
-	
+
 	/**
 	 * 
 	 * @param a Seitenlänge
