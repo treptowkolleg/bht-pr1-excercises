@@ -73,6 +73,15 @@ public class FirstMethods {
 	public static double flaecheSiebeneck(double a) {
 		return flaecheAllgemein(a, 7);
 	}
+	
+	/**
+	 * 
+	 * @param aSeitenlänge
+	 * @return Innenradius
+	 */
+	public static double innenRadiusSiebeneck(double a) {
+		return innenRadiusAllgemein(a, 7);
+	}
 
 	/**
 	 * Allgemeine Formel zur Berechnung von regelmäßigen n-eckigen Flächen.
@@ -83,6 +92,16 @@ public class FirstMethods {
 	 */
 	public static double flaecheAllgemein(double a, int n) {
 		return (n * Math.pow(a, 2)) / (4 * Math.tan(Math.PI / n));
+	}
+	
+	/**
+	 * 
+	 * @param a Seitenlänge
+	 * @param n Anzahl der Ecken
+	 * @return Innenradius
+	 */
+	public static double innenRadiusAllgemein(double a, int n) {
+		return a / (2 * Math.tan(Math.PI / n));
 	}
 
 	/**
