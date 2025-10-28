@@ -17,7 +17,7 @@ public class FirstMethods {
 		printValue(writer, 4);
 		printFlaecheSiebeneck(writer, 1);
 
-		// START:	Testdurchlauf mit Fehlerbehandlung
+		// START: Testdurchlauf mit Fehlerbehandlung
 		double a = 1;
 
 		for (int i : new Range(3, 9)) {
@@ -28,7 +28,7 @@ public class FirstMethods {
 				writer.print("FEHLER:\t" + e.getMessage());
 			}
 		}
-		// ENDE:	Testdurchlauf mit Fehlerbehandlung
+		// ENDE: Testdurchlauf mit Fehlerbehandlung
 
 		// gesammelte Ausgaben ausgeben
 		writer.flush();
@@ -91,7 +91,7 @@ public class FirstMethods {
 
 	/**
 	 * 
-	 * @param aSeitenlänge
+	 * @param a Seitenlänge
 	 * @return Innenradius
 	 */
 	public static double innenRadiusSiebeneck(double a) {
@@ -106,12 +106,14 @@ public class FirstMethods {
 	 * @return Flächeninhalt
 	 */
 	public static double flaecheAllgemein(double a, int n) {
-		if (n < 3)
+		if (n < 3) {
 			throw new RuntimeException(String.format("%d-seitige Flächen sind nicht definiert!%n", n));
+		}
 
-		if (a <= 0)
+		if (a <= 0) {
 			throw new RuntimeException(
 					String.format("Flächen mit einer Seitenlänge von a=%.2f sind nicht definiert!%n", a));
+		}
 
 		return (n * Math.pow(a, 2)) / (4 * Math.tan(Math.PI / n));
 	}
